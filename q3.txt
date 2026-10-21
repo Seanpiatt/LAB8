@@ -1,0 +1,5 @@
+1) For an entity component system, my registering textures would be a good fit to move there.
+The entity can handle the texture registering, and call a sprite manager to handle getting the sprite.
+
+2)The idea is we want to have more opaque items being more "towareds" the screen, while solid object are farther away.
+This is because if we had solid objects in the front, we would not be able to see the opaque obejcts in the back. 
