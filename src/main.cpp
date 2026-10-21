@@ -14,6 +14,18 @@ int main() {
     // sprite.origin() = {114, 14};
     // sprite.position() = {128, 128};
     // sprite.scale().x = -1;
+    const sf::Vector2f& fScale = {3.f, 3.f};
+    const sf::Vector2f& fTranslation = {0.f, 5.f};
+    BasicTransform f = BasicTransform(fScale, fTranslation);
+
+    const sf::Vector2f& gScale = {2.f, -1.f};
+    const sf::Vector2f& gTranslation = {4.f, 3.f};
+    BasicTransform g = BasicTransform(gScale, gTranslation);
+
+    BasicTransform fg = BasicTransform::compose(f, g);
+
+    BasicTransform fgInverse = BasicTransform::inverse(fg);
+
 
     sf::RenderWindow window(sf::VideoMode({256, 256}), "Sprites lab", sf::State::Windowed);
     // window.setMouseCursorVisible(false); // you can use this to hide the mouse

@@ -6,6 +6,17 @@
 
 using SpriteID = size_t;
 
-class SpriteManager {};
+class SpriteManager {
+    
+    sf::Texture& registerTexture(const std::string& filepath){}
+
+    template <typename... Args> 
+    SpriteID createSprite(Args&&... args){}
+    
+    Sprite& getSprite(SpriteID id){
+        //return &SpriteID;
+    }
+
+};
 
 #endif  // SPRITE_MANAGER_H

@@ -7,15 +7,34 @@
 #include <SFML/System/Vector2.hpp>
 
 struct BasicTransform {
-    // TODO: Determine if possible in general, else provide counterexample:
     // compose(f, g) is equivalent to first applying g, then applying f.
     static BasicTransform compose(const BasicTransform& f, const BasicTransform& g) {
-        return {};
+        sf::Vector2f innerScale = {f.scale *g.scale};
+        sf::Vector2f innerTranslation =  {f.scale.x *(g.translation.x) + f.translation.x, f.scale.y *(g.translation.y) + f.translation.y};
+        BasicTransform composed = BasicTransform( innerScale, innerTranslation);
+        return composed;
     };
 
-    // TODO: Determine if possible in general, else provide counterexample:
     static BasicTransform inverse(const BasicTransform& f) {
-        return {};
+        BasicTransform inverse;
+        if (f.scale.x != 0 && f.scale.y != 0){
+            inverse.scale = {1/f.scale.x,1/f.scale.y};
+            inverse.translation = {-(f.translation.x)/f.scale.x , -(f.translation.y)/f.scale.y };
+            return inverse;
+        }else if(f.scale.x == 0 && f.scale.y !=0 ){
+            inverse.scale = {0.f,1/f.scale.y};
+            inverse.translation = {-(f.translation.x)/f.scale.x , -(f.translation.y)/f.scale.y };
+            return inverse;
+        }else if (f.scale.y == 0&& f.scale.x !=0 ){
+            inverse.scale = {1/f.scale.x, 0.f };
+            inverse.translation = {-(f.translation.x)/f.scale.x , -(f.translation.y)/f.scale.y };
+            return inverse;
+        }else{
+            inverse.scale = {0.f,0.f};
+            inverse.translation = {-(f.translation.x) , -(f.translation.y)};
+            return inverse;
+        }
+
     };
 
     constexpr BasicTransform(const sf::Vector2f& scale = {1.f, 1.f},
